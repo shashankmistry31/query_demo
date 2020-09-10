@@ -1,0 +1,38 @@
+{% extends 'accounts/main.html'%}
+
+{%block content%}
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="container">
+      <div class="form-group mb-2">
+        <hr>
+          {{ form }}
+      </div>
+    </div>
+
+    <br>
+
+    {% if alert_flag %}
+      <script>alert("Incorrect Input : Wrong Integer Value")</script>
+    {% endif %}
+
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+      <div class="form-group mx-sm-6 mb-5">
+        <button type="submit" class="btn btn-primary mb-3">Convert</button>
+           <div class="card text-center text-white  mb-3" id="total-orders" style="width: 18rem;" >
+			  	       <div class="card-header">
+			  		            <h5 class="card-title">Answer</h5>
+			  	       </div>
+			  	       <div class="card-body">
+			    	           <h3 class="card-title">{{converted}}</h3>
+			  	       </div>
+           </div>
+			</div>
+		</div>
+	</div>
+</div>
+</form>
+{%endblock%}
