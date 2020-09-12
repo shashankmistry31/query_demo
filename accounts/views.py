@@ -9,6 +9,7 @@ from datetime import datetime
 import requests ,time
 db_time = time.time()
 
+
 def home(request):
     converted = ''
     print('OnLoad')
