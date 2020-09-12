@@ -7,8 +7,6 @@ from django.contrib import messages
 from django.contrib.sessions.backends.db import SessionStore
 from datetime import datetime
 import requests ,time
-db_time = time.time()
-
 
 def home(request):
     converted = ''
@@ -23,6 +21,7 @@ def home(request):
             db_session_key= request.session.session_key
             db_timestamp = datetime.now().strftime("%Y-%m-%d|%H:%M:%S")
             db_input = form.cleaned_data['query']
+            db_time = time.time()
             db_type = 2
             if db_input :
                 url = "https://jkl86ei2j1.execute-api.ap-southeast-1.amazonaws.com/quality/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input="+db_input+"&db_type=2"
@@ -48,6 +47,7 @@ def home(request):
             return HttpResponse('/Nothanks/')
     else:
         db_session_key= request.session.session_key
+        db_time = time.time()
         db_timestamp = datetime.now().strftime("%Y-%m-%d|%H:%M:%S")
         url = "https://jkl86ei2j1.execute-api.ap-southeast-1.amazonaws.com/quality/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input=NULL"+"&db_type=1"
         response = requests.get(url)
@@ -66,6 +66,7 @@ def d2b(request):
         if form.is_valid():
             db_session_key= request.session.session_key
             db_timestamp = datetime.now().strftime("%Y-%m-%d|%H:%M:%S")
+            db_time = time.time()
             db_input = form.cleaned_data['decimal_data']
             url = "https://jkl86ei2j1.execute-api.ap-southeast-1.amazonaws.com/quality/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input="+db_input+"&db_type=4"
             response = requests.get(url)
@@ -88,6 +89,7 @@ def d2b(request):
     else:
         db_session_key= request.session.session_key
         db_timestamp = datetime.now().strftime("%Y-%m-%d|%H:%M:%S")
+        db_time = time.time()
         url = "https://jkl86ei2j1.execute-api.ap-southeast-1.amazonaws.com/quality/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input=NULL"+"&db_type=3"
         response = requests.get(url)
         form = DecForm()
