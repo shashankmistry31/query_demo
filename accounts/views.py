@@ -24,7 +24,7 @@ def home(request):
             db_time = time.time()
             db_type = 2
             if db_input :
-                url = "https://jkl86ei2j1.execute-api.ap-southeast-1.amazonaws.com/quality/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input="+db_input+"&db_type=2"
+                url = "https://xui0vb3wa8.execute-api.us-east-1.amazonaws.com/prod/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input="+db_input+"&db_type=2"
                 print(url)
                 query_resp = requests.get(url)
                 #query_resp = requests.get('https://zscga0herg.execute-api.ap-southeast-1.amazonaws.com/default/lexdemo?operand1='+bin)
@@ -49,7 +49,7 @@ def home(request):
         db_session_key= request.session.session_key
         db_time = time.time()
         db_timestamp = datetime.now().strftime("%Y-%m-%d|%H:%M:%S")
-        url = "https://jkl86ei2j1.execute-api.ap-southeast-1.amazonaws.com/quality/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input=NULL"+"&db_type=1"
+        url = "https://xui0vb3wa8.execute-api.us-east-1.amazonaws.com/prod/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input=NULL"+"&db_type=1"
         response = requests.get(url)
         form = BinForm()
     context= {'form':form ,'converted':converted}
@@ -68,7 +68,7 @@ def d2b(request):
             db_timestamp = datetime.now().strftime("%Y-%m-%d|%H:%M:%S")
             db_time = time.time()
             db_input = form.cleaned_data['decimal_data']
-            url = "https://jkl86ei2j1.execute-api.ap-southeast-1.amazonaws.com/quality/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input="+db_input+"&db_type=4"
+            url = "https://xui0vb3wa8.execute-api.us-east-1.amazonaws.com/prod/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input="+db_input+"&db_type=4"
             response = requests.get(url)
             if db_input.isdigit():
                 try:
@@ -90,7 +90,7 @@ def d2b(request):
         db_session_key= request.session.session_key
         db_timestamp = datetime.now().strftime("%Y-%m-%d|%H:%M:%S")
         db_time = time.time()
-        url = "https://jkl86ei2j1.execute-api.ap-southeast-1.amazonaws.com/quality/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input=NULL"+"&db_type=3"
+        url = "https://xui0vb3wa8.execute-api.us-east-1.amazonaws.com/prod/dynamodb-update?session_key="+db_session_key+"&timestamp="+ str(db_timestamp)+'||'+str(db_time) +"&db_input=NULL"+"&db_type=3"
         response = requests.get(url)
         form = DecForm()
     context= {'form':form ,'converted':converted}
