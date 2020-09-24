@@ -61,7 +61,7 @@ def home(request):
         intents = response.json()['Intent List']
         print(intents)
         form = BinForm()
-    context= {'form':form ,'converted':converted,'intents':intents}
+    context= {'form':form ,'converted':converted,'intents':intents , 'db_session_key':db_session_key}
     return render(request,'accounts/dashboard.html',context)
 
 
