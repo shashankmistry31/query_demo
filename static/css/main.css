@@ -15,6 +15,7 @@
   background-color: #7CD1C0;
 }
 /*you can change chatbox position*/
+/*you can change chatbox position*/
 
 #body-chat {
     position: fixed;
@@ -32,6 +33,7 @@
     padding: 16px;
     box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
+
 
 #input-bottom {
     background: #ffffff;
@@ -105,7 +107,6 @@
 
 #chat-input {
     background: #f4f7f9;
-    width: 100%;
     position: relative;
     height: 37px;
     padding-top: 10px;
@@ -236,7 +237,7 @@
 
 .has-search .form-control {
     padding-left: 2.375rem;
-    width: 90% !important;
+    width: 90% ;
 }
 
 .has-search .form-control-feed {
@@ -386,4 +387,58 @@
     border-radius: 50px;
     margin-left:25%;
     margin-right:25%;
+}
+
+@media  (max-width: 500px){
+  #chat-bottom {
+    margin: auto;
+    background: #e60050;
+    width: 100% !important;
+    height: 60px;
+    border-radius: 15px 15px 0px 0px;
+    color: white;
+    padding: 16px;
+    box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    }
+    .chat-box {
+    display: none;
+    background: #e60050;
+    width: 100vw !important;
+    max-height: 100vh;
+    border-radius: 10px 10px 0px 0px;
+    margin: auto;
+    box-shadow: 0px 5px 35px 9px #ccc;
+    }
+    #chat-input
+    {
+        margin-left:-50px;
+    }
+    .has-search .form-control-feed
+    {
+        right:85px !important;
+    }
+    .has-search .form-control {
+    padding-left: 2.375rem;
+    width: 100% !important;
+    }
+
+    .bottom-text {
+    font-size: 12px !important;
+    padding-top:10px !important;
+
+}
+   #input-bottom {
+    width: 100% !important;
+    height: 37px;
+    border-radius: 40px;
+    margin-left: 0px !important;
+}
+
+
+}
+@media  (max-width: 300px){
+    .thumb_icons
+    {
+        display: flex !important;
+    }
 }
