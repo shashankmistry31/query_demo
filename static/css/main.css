@@ -1,7 +1,7 @@
 #logo{
 }
 
-body{
+#body{
   background-color: #ebeff5;
 }
 #total-orders{
@@ -14,19 +14,17 @@ body{
 #orders-pending{
   background-color: #7CD1C0;
 }
-
 /*you can change chatbox position*/
 
-#body {
+#body-chat {
     position: fixed;
     width: 100%;
     bottom: 0;
 }
 
-/* changed color here */
 #chat-bottom {
     margin: auto;
-    background: #17a2b8;
+    background: #e60050;
     width: 500px;
     height: 60px;
     border-radius: 15px 15px 0px 0px;
@@ -53,10 +51,10 @@ body{
     border-radius: 50%;
     display: none;
 }
-/* changed color here */
+
 .chat-box {
     display: none;
-    background: #17a2b8;
+    background: #e60050;
     width: 500px;
     max-width: 85vw;
     max-height: 100vh;
@@ -172,7 +170,7 @@ body{
 }
 
 .chat-logs::-webkit-scrollbar-track {
-    background-color: #ffffff;
+    background-color: #e60050;
 }
 
 
@@ -180,14 +178,14 @@ body{
 
 .chat-logs::-webkit-scrollbar {
     width: 5px;
-    background-color: #ffffff;
+    background-color: #e60050;
 }
 
 
 /*scrollbar background color*/
 
 .chat-logs::-webkit-scrollbar-thumb {
-    background-color: #040808;
+    background-color: #aaaaaa;
 }
 
 @media only screen and (max-width: 500px) {
@@ -210,6 +208,12 @@ body{
 
 .chat-msg {
     clear: both;
+
+}
+
+.chat-msg.user
+{
+    overflow: hidden;
 }
 
 .chat-msg.self>.cm-msg-text {
@@ -299,14 +303,7 @@ body{
 
 .bottom_group {
     display: flex;
-}
-
-.bottom_text {
-    width: 100%;
-    border: none !important;
-    color: #444;
-    padding-left: 8px;
-    padding-top: 8px;
+    height: 37px;
 }
 
 .fa-expand-alt {
@@ -327,10 +324,66 @@ body{
 #chat-submit:focus {
     outline: none !important;
 }
-.bottom_group>.fa {
-    position: relative;
-    margin-top: 9px;
-    margin-right: 11px;
-    color: #aaa;
-    font-size: 20px;
+#bottom-input-text
+{
+    width:100%;
+    height:37px;
+    color:#000;
+}
+#bottom-form
+{
+    display: flex;
+    width:100%;
+}
+#submit-bottom
+{
+    color:#888 !important;
+    font-size:22px;
+}
+
+
+
+#bottom-input-text::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #444;
+}
+
+#bottom-input-text::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #444;
+}
+
+#bottom-input-text:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #444;
+}
+
+#bottom-input-text:-moz-placeholder {
+    /* Firefox 18- */
+    color: #444;
+}
+
+#bottom-text-submit:focus {
+    outline: none !important;
+
+}
+#bottom-input-text
+{
+    border: none;
+}
+#bottom-text-submit
+{
+    border:none;
+    margin-right:8px;
+    margin-top:2px;
+    background: none;
+}
+
+.oval {
+    height: 3px;
+    width: 50%;
+    background-color: #FFF;
+    border-radius: 50px;
+    margin-left:25%;
+    margin-right:25%;
 }
