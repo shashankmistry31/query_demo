@@ -82,6 +82,7 @@ $(function() {
 
 
 	  var session_data = "{{db_session_key|escapejs}}";
+    console.log(session_data)
     var INDEX = 0;
     $("#chat-submit").click(function(e) {
         e.preventDefault();
@@ -126,6 +127,7 @@ $(function() {
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
         // sessionID = "cvbrrrm253fnx5j77n496ta9a48emuxb";
         const url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=" + msg + "&db_type=2";
+        console.log('reached');
         fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
             .then(response => response.text())
             .then(contents => generate_message_response(contents, 'user'))

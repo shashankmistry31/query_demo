@@ -108,7 +108,7 @@ def d2b(request):
         #url = "https://7q539nw8rl.execute-api.ap-southeast-1.amazonaws.com/default/dynamodb_update?session_key="+db_session_key+"&db_input=NULL&db_type=4"
         response = requests.get(url)
         form = DecForm()
-    context= {'form':form ,'converted':converted}
+    context= {'form':form ,'converted':converted,'db_session_key':db_session_key}
     return render(request,'accounts/d2b.html',context)
 
 
