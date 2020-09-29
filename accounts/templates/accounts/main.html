@@ -67,154 +67,190 @@
 <script>
 
 $(function() {
-    // function setCookie(name,value,days) {
-    //     var expires = "";
-    //     if (days) {
-    //         var date = new Date();
-    //         date.setTime(date.getTime() + (days*24*60*60*1000));
-    //         expires = "; expires=" + date.toUTCString();
-    //     }
-    //     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-    // }
-    // var json_str = setCookie('ppkcookie','testcookie',7);
 
-    // generate();
+    var response;
+    var uuid;
+    var session_data = 'NULL'
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    // sessionID = "cvbrrrm253fnx5j77n496ta9a48emuxb";
+    const url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=NULL&db_type=1";
+    console.log('reached');
 
-
-	  var session_data = "{{db_session_key|escapejs}}";
-    console.log(session_data)
-    var INDEX = 0;
-    $("#chat-submit").click(function(e) {
-        e.preventDefault();
-        var msg = $("#chat-input").val();
-        if (msg.trim() == '') {
-            return false;
-        }
-        generate(msg);
-    })
-
-    $("#bottom-text-submit").click(function(e) {
-        e.preventDefault();
-        var msg = $("#bottom-input-text").val();
-        if (msg.trim() == '') {
-            return false;
-        }
-        generate(msg);
-
-        $("#chat-bottom").slideToggle(200, "linear", function() {});
-        setTimeout(function() {
-            $(".chat-box").animate({
-                height: 'toggle'
-            });
-        }, 400);
-
-        document.getElementById("chat-input").focus();
-    })
-
-    function generate(msg) {
-        generate_message_self(msg, 'self');
-        var buttons = [{
-                name: 'Existing User',
-                value: 'existing'
-            },
-            {
-                name: 'New User',
-                value: 'new'
-            }
-        ];
-        // var sessionID = getJSessionId(); as the JS read of cookie shall be discouraged
-        var res;
-        const proxyurl = "https://cors-anywhere.herokuapp.com/";
-        // sessionID = "cvbrrrm253fnx5j77n496ta9a48emuxb";
-        const url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=" + msg + "&db_type=2";
-        console.log('reached');
-        fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-            .then(response => response.text())
-            .then(contents => generate_message_response(contents, 'user'))
-            .catch(() => console.log("Can't access " + url + " response. Blocked by browser?"));
-
-    }
-
-    function generate_message_self(msg) {
-        INDEX++;
-        var str = "";
-        str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg self\">";
-        str += "<p class = \"text_inlog_self\"> You asked: <\/p>";
-        str += "          <div class=\"cm-msg-text\">";
-        str += msg;
-        str += "          <\/div>";
-        str += "        <\/div>";
-        $(".chat-logs").append(str);
-        $("#cm-msg-" + INDEX).hide().fadeIn(300);
-        $("#chat-input").val('');
-        $(".chat-logs").stop().animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-    }
-
-    function generate_message_response(msg) {
-        msg = JSON.parse(msg)['Lex Response'].message;
-        INDEX++;
-        var str = "";
-        str += "<div>"
-        str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg user\">";
-        str += "<p class = \"text_inlog_response\"> Answered: <\/p>";
-        str += "<div class=\"thumb_icons\" >"
-        str += "<i class=\"fa fa-thumbs-up btn\"><\/i>"
-        str += "<i class=\"fa fa-thumbs-down btn\"><\/i>"
-        str += "          <\/div>";
-        str += "          <div class=\"cm-msg-text\">";
-        str += msg;
-        str += "          <\/div>";
-        str += "        <\/div>";
-        str += "<div class = \"oval\"><\/div>";
-        str += "<\/div>"
-        $(".chat-logs").append(str);
-        $("#cm-msg-" + INDEX).hide().fadeIn(300);
-        $(".chat-logs").stop().animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-    }
-
-    $("#bottom-text-submit").click(function() {
-
-    })
+    // try another way
+    fetch(proxyurl+url).then(function(response) {
+    return response.json();
+    }).then(function(data) {
+    console.log(data);
+    uuid = data.uuid_string;
+    console.log(uuid)
+    function setCookie(name,value,days) {
+          var expires = "";
+          if (days) {
+              var date = new Date();
+              date.setTime(date.getTime() + (days*24*60*60*1000));
+              expires = "; expires=" + date.toUTCString();
+          }
+          document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+      }
+      console.log(uuid)
+      var json_str = setCookie('ppkcookie',uuid,1);
+    // const obj = JSON.parse(data);
+    }).catch(function() {
+    console.log("Error in fetching the uuid response");
+    });
 
 
-    $(".chat-box-toggle").click(function() {
+});
 
-        $(".chat-box").slideToggle(200, "linear", function() {});
+$(function() {
+   // function setCookie(name,value,days) {
+   //     var expires = "";
+   //     if (days) {
+   //         var date = new Date();
+   //         date.setTime(date.getTime() + (days*24*60*60*1000));
+   //         expires = "; expires=" + date.toUTCString();
+   //     }
+   //     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+   // }
+   // var json_str = setCookie('ppkcookie','testcookie',7);
 
-        setTimeout(function() { $("#chat-bottom").show(); }, 400);
+   // generate();
 
-    })
+
+   var session_data = "{{db_session_key|escapejs}}";
+   console.log(session_data)
+   var INDEX = 0;
+   $("#chat-submit").click(function(e) {
+       e.preventDefault();
+       var msg = $("#chat-input").val();
+       if (msg.trim() == '') {
+           return false;
+       }
+       generate(msg);
+   })
+
+   $("#bottom-text-submit").click(function(e) {
+       e.preventDefault();
+       var msg = $("#bottom-input-text").val();
+       if (msg.trim() == '') {
+           return false;
+       }
+       generate(msg);
+
+       $("#chat-bottom").slideToggle(200, "linear", function() {});
+       setTimeout(function() {
+           $(".chat-box").animate({
+               height: 'toggle'
+           });
+       }, 400);
+
+       document.getElementById("chat-input").focus();
+   })
+
+   function generate(msg) {
+       generate_message_self(msg, 'self');
+       var buttons = [{
+               name: 'Existing User',
+               value: 'existing'
+           },
+           {
+               name: 'New User',
+               value: 'new'
+           }
+       ];
+       // var sessionID = getJSessionId(); as the JS read of cookie shall be discouraged
+       var res;
+       const proxyurl = "https://cors-anywhere.herokuapp.com/";
+       // sessionID = "cvbrrrm253fnx5j77n496ta9a48emuxb";
+       const url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=" + msg + "&db_type=2";
+       console.log('reached');
+       fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
+           .then(response => response.text())
+           .then(contents => generate_message_response(contents, 'user'))
+           .catch(() => console.log("Can't access " + url + " response. Blocked by browser?"));
+
+   }
+
+   function generate_message_self(msg) {
+       INDEX++;
+       var str = "";
+       str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg self\">";
+       str += "<p class = \"text_inlog_self\"> You asked: <\/p>";
+       str += "          <div class=\"cm-msg-text\">";
+       str += msg;
+       str += "          <\/div>";
+       str += "        <\/div>";
+       $(".chat-logs").append(str);
+       $("#cm-msg-" + INDEX).hide().fadeIn(300);
+       $("#chat-input").val('');
+       $(".chat-logs").stop().animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
+   }
+
+   function generate_message_response(msg) {
+       msg = JSON.parse(msg)['Lex Response'].message;
+       INDEX++;
+       var str = "";
+       str += "<div>"
+       str += "<div id='cm-msg-" + INDEX + "' class=\"chat-msg user\">";
+       str += "<p class = \"text_inlog_response\"> Answered: <\/p>";
+       str += "<div class=\"thumb_icons\" >"
+       str += "<i class=\"fa fa-thumbs-up btn\"><\/i>"
+       str += "<i class=\"fa fa-thumbs-down btn\"><\/i>"
+       str += "          <\/div>";
+       str += "          <div class=\"cm-msg-text\">";
+       str += msg;
+       str += "          <\/div>";
+       str += "        <\/div>";
+       str += "<div class = \"oval\"><\/div>";
+       str += "<\/div>"
+       $(".chat-logs").append(str);
+       $("#cm-msg-" + INDEX).hide().fadeIn(300);
+       $(".chat-logs").stop().animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
+   }
+
+   $("#bottom-text-submit").click(function() {
+
+   })
+
+
+   $(".chat-box-toggle").click(function() {
+
+       $(".chat-box").slideToggle(200, "linear", function() {});
+
+       setTimeout(function() { $("#chat-bottom").show(); }, 400);
+
+   })
 })
 
 
 function getSessionId() {
-    var sessionID = document.cookie.match(/sessionid=[^;]+/);
-    var jsId = document.cookie.match(/JSESSIONID=[^;]+/);
-    console.log(sessionID);
-    console.log(document.cookie );
-    console.log(jsID);
-    if (sessionID != null) {
-        if (sessionID instanceof Array)
-            sessionID = sessionID[0].substring(10);
-        else
-            sessionID = sessionID.substring(10);
-    }
-    return sessionID;
+   var sessionID = document.cookie.match(/sessionid=[^;]+/);
+   var jsId = document.cookie.match(/JSESSIONID=[^;]+/);
+   console.log(sessionID);
+   console.log(document.cookie );
+   console.log(jsID);
+   if (sessionID != null) {
+       if (sessionID instanceof Array)
+           sessionID = sessionID[0].substring(10);
+       else
+           sessionID = sessionID.substring(10);
+   }
+   return sessionID;
 }
 
 
 function getJSessionId(){
-    var jsId = document.cookie.match(/csrftoken=[^;]+/);
-    jsId = document.cookie.match(/sessionid=[A-Za-z0-9]+\;/i);
-    console.log(jsId);
-    console.log(jsId);
-    if(jsId != null) {
-        if (jsId instanceof Array)
-            jsId = jsId[0].substring(10);
-        else
-            jsId = jsId.substring(10);
-    }
-    return jsId;
+   var jsId = document.cookie.match(/csrftoken=[^;]+/);
+   jsId = document.cookie.match(/sessionid=[A-Za-z0-9]+\;/i);
+   console.log(jsId);
+   console.log(jsId);
+   if(jsId != null) {
+       if (jsId instanceof Array)
+           jsId = jsId[0].substring(10);
+       else
+           jsId = jsId.substring(10);
+   }
+   return jsId;
 }
 </script>
 
