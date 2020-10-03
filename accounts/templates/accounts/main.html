@@ -3,7 +3,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Query Demo</title>
+    <title>Query Demo - Main </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -71,18 +71,25 @@ $(function() {
     var response;
     var uuid;
     var session_data = 'NULL'
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    // const proxyurl = "https://rocky-lake-46801.herokuapp.com/";
     // sessionID = "cvbrrrm253fnx5j77n496ta9a48emuxb";
-    const url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=NULL&db_type=1";
-    console.log('reached');
+    var url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=NULL&db_type=1";
+    // const url = "https://api.silverscraper.com/hsbc/dynamodb_update?db_type=1&db_input=NULL&session_key=" + session_data;
+    // console.log('reached');
 
     // try another way
-    fetch(proxyurl+url).then(function(response) {
-    return response.json();
-    }).then(function(data) {
-    console.log(data);
-    uuid = data.uuid_string;
-    console.log(uuid)
+
+    function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+    }
+
     function setCookie(name,value,days) {
           var expires = "";
           if (days) {
@@ -92,33 +99,50 @@ $(function() {
           }
           document.cookie = name + "=" + (value || "")  + expires + "; path=/";
       }
-      console.log(uuid)
-      var json_str = setCookie('ppkcookie',uuid,1);
+    console.log('Getting the cookie');
+    var uuid = getCookie('ppkcookie');
+// put the condition here
+    if (uuid ==  null) {
+    // console.log(x);
+    console.log('Cookie not found');
+    fetch(url).then(function(response) {
+    return response.json();
+    }).then(function(data) {
+    // console.log(data);
+    uuid = data.uuid_string;
+    console.log('Got the UUID from Lambda:')
+    console.log(uuid)
+    var json_str = setCookie('ppkcookie',uuid,1);
+    // const obj = JSON.parse(data);
+    }).catch(function() {
+    console.log("Error in fetching the uuid response");
+    });
+  } else {
+    console.log('Cookie Found')
+    session_data =uuid
+    url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=NULL&db_type=1";
+    fetch(url).then(function(response) {
+    return response.json();
+    }).then(function(data) {
+    // console.log(data);
+    // uuid = data.uuid_string;
+    console.log('Logged into Dynamo DB')
+    // console.log(uuid)
+    // var json_str = setCookie('ppkcookie',uuid,1);
     // const obj = JSON.parse(data);
     }).catch(function() {
     console.log("Error in fetching the uuid response");
     });
 
+  }
+
 
 });
 
 $(function() {
-   // function setCookie(name,value,days) {
-   //     var expires = "";
-   //     if (days) {
-   //         var date = new Date();
-   //         date.setTime(date.getTime() + (days*24*60*60*1000));
-   //         expires = "; expires=" + date.toUTCString();
-   //     }
-   //     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-   // }
-   // var json_str = setCookie('ppkcookie','testcookie',7);
-
-   // generate();
-
 
    var session_data = "{{db_session_key|escapejs}}";
-   console.log(session_data)
+   // console.log(session_data)
    var INDEX = 0;
    $("#chat-submit").click(function(e) {
        e.preventDefault();
@@ -148,6 +172,20 @@ $(function() {
    })
 
    function generate(msg) {
+     // check how to reutilise below function
+     function getCookie(name) {
+     var nameEQ = name + "=";
+     var ca = document.cookie.split(';');
+     for(var i=0;i < ca.length;i++) {
+         var c = ca[i];
+         while (c.charAt(0)==' ') c = c.substring(1,c.length);
+         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+     }
+     return null;
+     }
+
+     var uuid = getCookie('ppkcookie');
+
        generate_message_self(msg, 'self');
        var buttons = [{
                name: 'Existing User',
@@ -160,11 +198,11 @@ $(function() {
        ];
        // var sessionID = getJSessionId(); as the JS read of cookie shall be discouraged
        var res;
-       const proxyurl = "https://cors-anywhere.herokuapp.com/";
+       // const proxyurl = "https://cors-anywhere.herokuapp.com/";
        // sessionID = "cvbrrrm253fnx5j77n496ta9a48emuxb";
-       const url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=" + msg + "&db_type=2";
-       console.log('reached');
-       fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
+       const url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + uuid + "&db_input=" + msg + "&db_type=2";
+       console.log('Getting the response');
+       fetch(url) // https://cors-anywhere.herokuapp.com/https://example.com
            .then(response => response.text())
            .then(contents => generate_message_response(contents, 'user'))
            .catch(() => console.log("Can't access " + url + " response. Blocked by browser?"));
@@ -253,6 +291,9 @@ function getJSessionId(){
    return jsId;
 }
 </script>
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
 </html>

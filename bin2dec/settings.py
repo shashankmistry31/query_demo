@@ -25,7 +25,7 @@ SECRET_KEY = 'q4_xde5hcrgy9m-hk$j@mtadl1lpemaiuw$!qnd3apq)q+3ai='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://sbmquerydemo.herokuapp.com/','127.0.0.1','sbmquerydemo.herokuapp.com']
+ALLOWED_HOSTS = ['https://sbmquerydemo.herokuapp.com/','127.0.0.1','sbmquerydemo.herokuapp.com','http://127.0.0.1:8000']
 
 
 # Application definition
