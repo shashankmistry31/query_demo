@@ -113,7 +113,7 @@ def askintent(request,pk):
     #Shashank AWS url
     #url = 'https://bzchkm42h7.execute-api.ap-southeast-1.amazonaws.com/default/intent_conclusion_statement?intent='+pk
     #Christian AWS url
-    url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key="+db_session_key+"&db_input="+ pk +"&db_type=15&bank=hsbc"
+    url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key="+db_session_key+"&db_input="+ pk +"&db_type=15&bank=main"
     response = requests.get(url)
     print(response)
     return HttpResponse(response.json()['fixed_response'])
