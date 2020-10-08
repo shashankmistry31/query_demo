@@ -29,7 +29,7 @@ def home(request):
                 query_resp = requests.get(url)
                 try:
                     query_resp.raise_for_status()
-                    converted = query_resp.json()['Lex Response']['message']
+                    converted = query_resp.json()['lex_response']['message']
                     # intents = query_resp.json()['Intent List']
                     intents_dict = query_resp.json()['SSM response']
                     print(intents_dict)
