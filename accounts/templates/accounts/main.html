@@ -73,7 +73,7 @@ $(function() {
     var session_data = 'NULL'
     // const proxyurl = "https://rocky-lake-46801.herokuapp.com/";
     // sessionID = "cvbrrrm253fnx5j77n496ta9a48emuxb";
-    var url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=NULL&db_type=1";
+    var url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=NULL&db_type=111";
     // const url = "https://api.silverscraper.com/hsbc/dynamodb_update?db_type=1&db_input=NULL&session_key=" + session_data;
     // console.log('reached');
 
@@ -120,14 +120,13 @@ $(function() {
   } else {
     console.log('Cookie Found')
     session_data =uuid
-    url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=NULL&db_type=1";
+    url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + session_data + "&db_input=NULL&db_type=111";
     fetch(url).then(function(response) {
     return response.json();
     }).then(function(data) {
     // console.log(data);
     // uuid = data.uuid_string;
-    console.log('Logged into Dynamo DB')
-    // console.log(uuid)
+    if  (data.db_insert == "Success"){console.log('Logged into Dynamo DB')}
     // var json_str = setCookie('ppkcookie',uuid,1);
     // const obj = JSON.parse(data);
     }).catch(function() {
@@ -200,7 +199,7 @@ $(function() {
        var res;
        // const proxyurl = "https://cors-anywhere.herokuapp.com/";
        // sessionID = "cvbrrrm253fnx5j77n496ta9a48emuxb";
-       const url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + uuid + "&db_input=" + msg + "&db_type=2";
+       const url = "https://t41v93n5u5.execute-api.eu-west-2.amazonaws.com/prod/processask?session_key=" + uuid + "&db_input=" + msg + "&db_type=114";
        console.log('Getting the response');
        fetch(url) // https://cors-anywhere.herokuapp.com/https://example.com
            .then(response => response.text())
@@ -225,7 +224,8 @@ $(function() {
    }
 
    function generate_message_response(msg) {
-       msg = JSON.parse(msg)['Lex Response'].message;
+       // msg = JSON.parse(msg)['lex_response'].message;
+       msg = JSON.parse(msg).lex_response;
        INDEX++;
        var str = "";
        str += "<div>"
