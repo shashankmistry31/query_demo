@@ -16,6 +16,7 @@
 }
 /*you can change chatbox position*/
 /*you can change chatbox position*/
+/*you can change chatbox position*/
 
 #body-chat {
     position: fixed;
@@ -25,6 +26,7 @@
 
 #chat-bottom {
     margin: auto;
+	position:relative;
     background: #e60050;
     width: 500px;
     height: 60px;
@@ -34,10 +36,9 @@
     box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
 }
 
-
 #input-bottom {
     background: #ffffff;
-    width: 82%;
+    width: 83%;
     height: 37px;
     border-radius: 40px;
     margin-left: 40px;
@@ -76,11 +77,13 @@
     color: #aaa;
     right: 0px;
     top: 32px;
+    right: 4px;
     font-size: 20px;
     float: right;
     margin-right: 12px;
     cursor: pointer;
 }
+
 
 .chat-box-body {
     position: relative;
@@ -107,6 +110,8 @@
 
 #chat-input {
     background: #f4f7f9;
+    font-size: 17px;
+    width: 100%;
     position: relative;
     height: 37px;
     padding-top: 10px;
@@ -208,13 +213,8 @@
 }
 
 .chat-msg {
+        overflow: hidden;
     clear: both;
-
-}
-
-.chat-msg.user
-{
-    overflow: hidden;
 }
 
 .chat-msg.self>.cm-msg-text {
@@ -237,7 +237,7 @@
 
 .has-search .form-control {
     padding-left: 2.375rem;
-    width: 90% ;
+    width: 90% !important;
 }
 
 .has-search .form-control-feed {
@@ -295,16 +295,24 @@
 
 .bottom-text {
     color: #e60050;
-    font-size: 17px;
+    font-size: 14px;
     border-right-color: #aaa;
     border-radius: 0;
     padding-right: 5px;
-    padding-top: 6px;
+    padding-top: 8px;
 }
 
 .bottom_group {
     display: flex;
-    height: 37px;
+	height: 37px;
+}
+
+.bottom_text {
+    width: 100%;
+    border: none !important;
+    color: #444;
+    padding-left: 8px;
+    padding-top: 8px;
 }
 
 .fa-expand-alt {
@@ -320,125 +328,186 @@
     -webkit-border-radius: 50%;
     width: 35px;
     padding-top: 5px;
+	color:#fff;
 }
 
 #chat-submit:focus {
     outline: none !important;
 }
-#bottom-input-text
-{
-    width:100%;
-    height:37px;
-    color:#000;
+.bottom_group>.fa {
+    position: relative;
+    margin-top: 9px;
+    margin-right: 11px;
+    color: #aaa;
+    font-size: 20px;
 }
-#bottom-form
-{
+
+
+/* new chabot tag style  */
+
+.predefined_text {
+	padding-left:0;
+	list-style: none;
+    padding-left: 0;
+    width: 100%;
+    font-size: 12px;
+}
+li.message_text {
+    float: left;
+}
+.predefined_text li a {
+	color:#ffffff;
+	display: block;
+	background-color:#5514b4;
+	margin-left: 5px;
+    margin-bottom:5px;
+    border-radius: 10px;
+	padding: 8px;
+}
+#bottom-form {
+	display:flex;
+}
+#bottom-input-text {
+	border:0;
+	width: 250px;
+	padding-top: 9px;
+}
+#bottom-text-submit {
+	background: transparent;
+    color: grey;
+    border-radius: 50%;
+    padding: 8px 12px;
+}
+.circle-expand, .circle-question {
+	position: absolute;
+    top: 18px;
+	font-size:20px;
+    height: 35px;
+    width: 35px;
+    border: 2px solid #fff;
     display: flex;
-    width:100%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
-#submit-bottom
-{
-    color:#888 !important;
-    font-size:22px;
+.circle-expand {
+	right: 15px;
 }
-
-
-
-#bottom-input-text::-webkit-input-placeholder {
-    /* Chrome/Opera/Safari */
-    color: #444;
+.circle-question {
+	left: 15px;
 }
-
-#bottom-input-text::-moz-placeholder {
-    /* Firefox 19+ */
-    color: #444;
+.chat-box .circle-question {
+	top:32px;
+	color:#fff;
 }
 
-#bottom-input-text:-ms-input-placeholder {
-    /* IE 10+ */
-    color: #444;
-}
-
-#bottom-input-text:-moz-placeholder {
-    /* Firefox 18- */
-    color: #444;
-}
-
-#bottom-text-submit:focus {
-    outline: none !important;
-
-}
-#bottom-input-text
-{
-    border: none;
-}
-#bottom-text-submit
-{
-    border:none;
-    margin-right:8px;
-    margin-top:2px;
-    background: none;
-}
 
 .oval {
     height: 3px;
     width: 50%;
     background-color: #FFF;
     border-radius: 50px;
-    margin-left:25%;
-    margin-right:25%;
-}
-
-@media  (max-width: 500px){
-  #chat-bottom {
-    margin: auto;
-    background: #e60050;
-    width: 100% !important;
-    height: 60px;
-    border-radius: 15px 15px 0px 0px;
-    color: white;
-    padding: 16px;
-    box-shadow: 0px 3px 16px 0px rgba(0, 0, 0, 0.6), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    }
-    .chat-box {
-    display: none;
-    background: #e60050;
-    width: 100vw !important;
-    max-height: 100vh;
-    border-radius: 10px 10px 0px 0px;
-    margin: auto;
-    box-shadow: 0px 5px 35px 9px #ccc;
-    }
-    #chat-input
-    {
-        margin-left:-50px;
-    }
-    .has-search .form-control-feed
-    {
-        right:85px !important;
-    }
-    .has-search .form-control {
-    padding-left: 2.375rem;
-    width: 100% !important;
-    }
-
-    .bottom-text {
-    font-size: 12px !important;
-    padding-top:10px !important;
-
-}
-   #input-bottom {
-    width: 100% !important;
-    height: 37px;
-    border-radius: 40px;
-    margin-left: 0px !important;
+    margin-left: 25%;
+    margin-right: 25%;
+        margin-top: 30px;
 }
 
 
+
+
+@media screen and (max-width: 767px) {
+  #chat-bottom{
+      width: auto;
+  }
+  #input-bottom{
+      height: 35px;
+      width: 78%;
+  }
+
+  #bottom-input-text {
+    width: 100%;
 }
-@media  (max-width: 300px){
-    .thumb_icons
-    {
-        display: flex !important;
+
+/*.circle-expand {
+    right: 9px;
+}*/
+
+.chat-box-toggle {
+    margin-right: 7px;
+}
+
+.has-search .form-control-feed {
+    right: 52px;
+    font-size: 14px;
+        top: 35px;
+}
+
+
+.circle-expand, .circle-question {
+    top: 18px;
+    font-size: 15px;
+    height: 30px;
+    width: 30px;
+}
+
+.bottom-text {
+    font-size: 14px;
+}
+.bottom_group {
+    height: 36px;
+}
+
+.circle {
+    height: 30px;
+    width: 30px;
+    padding-top: 3px;
+    font-size: 16px;
+    right: 2px;
+}
+
+.chat-input>form {
+    padding-left: 30px;
+}
+
+.chat-box-overlay{
+    display: flow-root;
+}
+
+
+#chat-input {
+    font-size: 13px;
+    height: 34px;
+}
+
+
+   }
+
+
+
+   @media only screen and (min-width: 470px) and (max-width: 650px)  {
+        #input-bottom {
+            width: 86% !important;
+        }
+}
+
+@media only screen and (min-width: 470px) and (max-width: 767px)  {
+
+  /* .has-search .form-control-feed {
+        right: 0px !important;
+    }*/
+    .form-group, #bottom-form{
+            width: 100%;
     }
-}
+
+        #input-bottom {
+            height: 35px;
+            width: 90%;
+        }
+
+        .has-search .form-control-feed {
+            right: 72px;
+
+        }
+
+
+ }
