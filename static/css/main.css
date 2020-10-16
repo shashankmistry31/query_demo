@@ -355,6 +355,9 @@
 li.message_text {
     float: left;
 }
+#queue_id li a {
+color: #ffffff;
+}
 .predefined_text li a {
 	color:#ffffff;
 	display: block;
